@@ -7,168 +7,181 @@
 <title>急專考古題庫</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Noto+Sans+TC:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: an OMR answer-sheet desk — one reading column for the question, answer bubbles printed in dropout ink, a bubble grid as the navigator. */
+/* Layout: printed monograph — bone canvas, flush-left poster type, hairline-divided rows, one full-bleed indigo band per view. Light only, by design. */
 :root{
-  --paper:#f4f6f2; --sheet:#ffffff; --ink:#1b2220; --muted:#66706c; --line:#d6dbd3;
-  --dropout:#b32f57; --dropout-soft:#f7e3ea; --pencil:#2d3330;
-  --ok:#1d7a50; --ok-soft:#e1f2e8; --bad:#c2521c; --bad-soft:#fbe8dc; --warn:#8a6a00;
-  --f-display:"Noto Serif TC","Songti TC","PMingLiU",serif;
-  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
-  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
-  --r:10px;
+  color-scheme:light;
+  --bone:#e8e6e0; --ink:#000000; --paper:#ffffff; --indigo:#1925aa; --deep:#0d1355;
+  --hair:rgba(0,0,0,.13); --soft:rgba(0,0,0,.55);
+  --f-sans:"Inter","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --paper:#121615; --sheet:#1a1f1e; --ink:#e5ebe7; --muted:#97a19c; --line:#2d3533;
-  --dropout:#f27b9b; --dropout-soft:#3a2129; --pencil:#d9dfdb;
-  --ok:#55c98f; --ok-soft:#173226; --bad:#f39462; --bad-soft:#3a2418; --warn:#e2c050; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --paper:#121615; --sheet:#1a1f1e; --ink:#e5ebe7; --muted:#97a19c; --line:#2d3533;
-  --dropout:#f27b9b; --dropout-soft:#3a2129; --pencil:#d9dfdb;
-  --ok:#55c98f; --ok-soft:#173226; --bad:#f39462; --bad-soft:#3a2418; --warn:#e2c050; color-scheme:dark}
-*{box-sizing:border-box}
-body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
-.wrap{max-width:880px;margin:0 auto}
-button{font:inherit;color:inherit;cursor:pointer}
-:focus-visible{outline:2px solid var(--dropout);outline-offset:2px}
+*{box-sizing:border-box;border-radius:0}
+html{background:var(--bone)}
+body{background:var(--bone);color:var(--ink);font-family:var(--f-sans);font-size:16px;line-height:1.5;font-weight:400;padding-block:0 60px;overflow-x:hidden}
+.g{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1200px;margin:0 auto}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+:focus-visible{outline:1px solid var(--indigo);outline-offset:3px}
 .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.lab{font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;line-height:1.5}
+.lab14{font-family:var(--f-mono);font-size:12px;letter-spacing:.02em;text-transform:uppercase}
+a{color:inherit}
 
-/* masthead */
-header.mast{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:28px 18px;border-bottom:2px solid var(--dropout)}
-.brand h1{font-family:var(--f-display);font-weight:900;font-size:clamp(28px,6vw,40px);line-height:1.1;margin:0;letter-spacing:.04em;text-wrap:balance}
-.brand p{margin:6px 0 0;color:var(--muted);font-size:13.5px}
-.brand .src{color:var(--dropout)}
-.stats{display:flex;gap:18px;flex-wrap:wrap}
-.stat{display:flex;flex-direction:column;align-items:flex-end}
-.stat b{font-family:var(--f-mono);font-size:22px;line-height:1.1;font-variant-numeric:tabular-nums}
-.stat span{font-size:12px;color:var(--muted);letter-spacing:.08em}
-#sync{font-size:12px;color:var(--muted);margin-top:8px}
+/* header line */
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px;border-bottom:1px solid var(--hair)}
+.mark{display:flex;align-items:center;gap:8px;color:var(--deep)}
+.mark i{width:10px;height:10px;background:var(--deep);display:block}
+.menu{display:flex;align-items:stretch;background:var(--paper);height:28px}
+.menu span{display:flex;align-items:center;padding:0 10px}
+.menu b{width:28px;display:grid;place-items:center;background:var(--indigo);color:var(--paper);font-family:var(--f-mono);font-weight:400}
 
-/* tabs */
-.tabs{display:flex;gap:4px;margin:22px 0 16px;border-bottom:1px solid var(--line);overflow-x:auto}
-.tab{background:none;border:0;border-bottom:3px solid transparent;padding:8px 14px;color:var(--muted);font-weight:500;white-space:nowrap}
-.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--dropout)}
-.modebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;font-size:14px;color:var(--muted)}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--sheet)}
-.seg button{border:0;background:none;padding:4px 14px;border-radius:999px;font-size:14px;color:var(--muted)}
-.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+/* hero */
+.hero{position:relative;padding-block:40px 34px}
+.hero h1{font-weight:500;font-size:clamp(64px,13.5vw,160px);line-height:1.02;letter-spacing:-.8px;margin:0 0 0 -.04em;color:var(--ink);text-wrap:balance}
+.hero .sub{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:26px;align-items:flex-end}
+.hero p{margin:0;font-size:18px;max-width:46ch}
+.side{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:44px;writing-mode:vertical-rl;color:var(--soft)}
 
-/* year grid */
-.years{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.year{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;text-align:left;display:flex;flex-direction:column;gap:6px}
-.year:hover{border-color:var(--dropout)}
-.year .yt{display:flex;justify-content:space-between;align-items:baseline}
-.year .yt b{font-family:var(--f-display);font-size:20px}
-.year .yt span{font-size:12px;color:var(--muted)}
-.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;display:flex}
-.bar i{display:block;height:100%}
-.bar .g{background:var(--ok)} .bar .r{background:var(--bad)}
-.year .ym{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+/* indigo band */
+.band{background:var(--indigo);color:var(--bone)}
+.band .inner{padding-block:30px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.band .k{display:flex;flex-direction:column;gap:6px;border-left:1px solid rgba(232,230,224,.3);padding-left:15px}
+.band .k b{font-weight:500;font-size:clamp(30px,5vw,46px);line-height:1.05;font-variant-numeric:tabular-nums}
+.band .k small{font-size:.5em;opacity:.6}
+.band .lab{opacity:.8}
+#sync{margin-top:14px;padding-bottom:22px;opacity:.75}
+@media (max-width:640px){.band .inner{grid-template-columns:repeat(2,1fr)}}
 
-.panel{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:14px}
-.panel h3{margin:0;font-size:16px}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:3px 11px;font-size:13px;font-family:var(--f-mono)}
-.chip[aria-pressed="true"]{border-color:var(--dropout);background:var(--dropout-soft);color:var(--dropout)}
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:8px;padding:8px 18px;font-weight:500}
-.btn.ghost{background:none;color:var(--ink);border-color:var(--line)}
-.btn:disabled{opacity:.4;cursor:default}
-.hint{font-size:13px;color:var(--muted);margin:0}
-input[type=search]{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
-label.ck{display:inline-flex;gap:6px;align-items:center;font-size:14px}
-.results{display:flex;flex-direction:column}
-.res{border:0;border-top:1px solid var(--line);background:none;text-align:left;padding:10px 2px;display:grid;grid-template-columns:auto 1fr;gap:12px;font-size:14px}
-.res .k{font-family:var(--f-mono);color:var(--dropout);white-space:nowrap}
-.res span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-mark{background:var(--dropout-soft);color:inherit}
+/* split heading + tabs */
+.split{display:flex;align-items:center;gap:15px;margin:46px 0 0}
+.split h2{margin:0;font-weight:500;font-size:clamp(24px,4vw,36px);line-height:1.1}
+.split hr{flex:1;border:0;border-top:1px solid var(--hair);margin:0}
+.split .en{color:var(--soft)}
+.tabs{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px}
+.tab{color:var(--soft)}
+.tab[aria-selected="true"]{color:var(--indigo)}
+.tab[aria-selected="true"]::before{content:"[ "} .tab[aria-selected="true"]::after{content:" ]"}
+.modebar{display:flex;gap:18px;flex-wrap:wrap;align-items:baseline;margin-top:14px;color:var(--soft)}
+.modebar button{color:var(--soft)} .modebar button[aria-pressed="true"]{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+
+/* rows */
+.rows{margin-top:22px;border-top:1px solid var(--hair)}
+.yrow{display:grid;grid-template-columns:minmax(64px,110px) 1fr auto;gap:15px;align-items:center;width:100%;text-align:left;padding:16px 0;border-bottom:1px solid var(--hair)}
+.yrow .yn{font-size:30px;font-weight:500;line-height:1;color:var(--indigo);font-variant-numeric:tabular-nums}
+.yrow .ym{display:flex;flex-direction:column;gap:8px;min-width:0}
+.meter{height:2px;background:var(--hair);display:flex}
+.meter i{display:block;height:100%}
+.meter .o{background:var(--indigo)} .meter .x{background:var(--ink)}
+.yrow .go{font-size:24px;color:var(--indigo);line-height:1}
+.yrow:hover .go{transform:translateX(4px)}
+
+.block{margin-top:22px;display:flex;flex-direction:column;gap:20px}
+.block h3{margin:0;font-weight:500;font-size:18px}
+.chips{display:flex;flex-wrap:wrap;gap:0 18px}
+.chip{font-family:var(--f-mono);font-size:14px;color:var(--soft);padding:4px 0}
+.chip[aria-pressed="true"]{color:var(--indigo)}
+.chip[aria-pressed="true"]::before{content:"■ ";font-size:10px;vertical-align:1px}
+.row{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.btn{background:var(--paper);color:var(--ink);font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;display:inline-flex;align-items:stretch;height:36px}
+.btn span{display:flex;align-items:center;padding:0 14px}
+.btn b{width:36px;display:grid;place-items:center;background:var(--ink);color:var(--paper);font-weight:400}
+.btn:disabled{opacity:.35;cursor:default}
+.link{font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.02em;color:var(--ink)}
+.link::before{content:"[ "} .link::after{content:" ]"}
+.link:disabled{opacity:.35;cursor:default}
+.hint{font-size:14px;color:var(--soft);margin:0;max-width:65ch}
+input[type=search]{width:100%;font:inherit;font-size:24px;padding:10px 0;border:0;border-bottom:1px solid var(--ink);background:transparent;color:var(--ink);outline:none}
+input[type=search]:focus{border-bottom-color:var(--indigo)}
+label.ck{display:inline-flex;gap:8px;align-items:center;font-size:14px}
+label.ck input{accent-color:var(--indigo)}
+.res{display:grid;grid-template-columns:96px 1fr;gap:15px;width:100%;text-align:left;padding:12px 0;border-bottom:1px solid var(--hair);font-size:15px}
+.res .k{color:var(--indigo);padding-top:2px}
+.res span:last-child{min-width:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+mark{background:var(--paper);color:var(--indigo)}
+.empty{padding:46px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);font-size:18px;max-width:none}
 
 /* quiz */
-.qtop{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);display:flex;align-items:center;gap:10px;padding-block:12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
-.qtop .title{font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.iconbtn{border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:5px 11px;font-size:14px}
-.iconbtn[aria-pressed="true"]{border-color:var(--warn);color:var(--warn)}
-.timer{font-family:var(--f-mono);font-size:14px;color:var(--muted)}
-.qcard{margin-top:18px;background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:clamp(16px,4vw,28px);display:flex;flex-direction:column;gap:16px}
-.qmeta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
-.qmeta .no{font-family:var(--f-mono);color:var(--dropout);font-weight:700;letter-spacing:.04em}
-.qmeta a{color:var(--muted)}
-.stem{font-size:17px;line-height:1.85;margin:0;max-width:68ch;overflow-wrap:anywhere}
-.figs{display:flex;flex-wrap:wrap;gap:10px}
-.figs a{display:block;flex:1 1 220px;max-width:100%;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff;position:relative}
-.figs.many{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
-.figs .cap{position:absolute;top:6px;left:6px;font-family:var(--f-mono);font-size:12px;font-weight:700;background:var(--dropout);color:#fff;border-radius:4px;padding:0 6px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bone)}
+.qtop{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bone);border-bottom:1px solid var(--hair)}
+.qtop .in{display:flex;align-items:center;gap:18px;padding-block:14px;flex-wrap:wrap}
+.qtop .title{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qtop .flag[aria-pressed="true"]{color:var(--indigo)}
+.qhead{display:flex;align-items:baseline;gap:15px;flex-wrap:wrap;padding-top:34px}
+.qno{font-weight:500;font-size:clamp(46px,9vw,96px);line-height:.94;letter-spacing:-.8px;color:var(--indigo);font-variant-numeric:tabular-nums}
+.qhead .meta{display:flex;flex-direction:column;gap:4px;color:var(--soft)}
+.stem{font-size:clamp(18px,2.2vw,22px);line-height:1.6;margin:22px 0 0;max-width:40em;overflow-wrap:anywhere}
+.figs{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.figs a{display:block;flex:1 1 240px;max-width:560px;background:var(--paper);position:relative}
+.figs.many{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.figs.many a{max-width:none}
 .figs img{display:block;width:100%;height:auto}
-.opts{display:flex;flex-direction:column;gap:8px}
-.opt{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;text-align:left;border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:10px 12px;line-height:1.65}
-.opt:hover:not(:disabled){border-color:var(--dropout)}
+.figs .cap{position:absolute;top:0;left:0;width:22px;height:22px;display:grid;place-items:center;background:var(--indigo);color:var(--paper);font-family:var(--f-mono);font-size:12px}
+.opts{margin-top:28px;border-top:1px solid var(--hair)}
+.opt{display:grid;grid-template-columns:28px 1fr;gap:15px;align-items:start;width:100%;text-align:left;padding:14px 0;border-bottom:1px solid var(--hair);font-size:17px;line-height:1.55}
 .opt:disabled{cursor:default}
-.opt .txt{min-width:0;overflow-wrap:anywhere}
-.bub{width:30px;height:20px;border:1.5px solid var(--dropout);border-radius:50%;display:inline-grid;place-items:center;font-family:var(--f-mono);font-size:12px;color:var(--dropout);margin-top:3px;flex:none}
-.opt.sel .bub{background:var(--pencil);border-color:var(--pencil);color:var(--sheet)}
-.opt.sel{border-color:var(--pencil)}
-.opt.right{border-color:var(--ok);background:var(--ok-soft)}
-.opt.right .bub{background:var(--ok);border-color:var(--ok);color:var(--sheet)}
-.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
-.opt.wrong .bub{background:var(--bad);border-color:var(--bad);color:var(--sheet)}
-.opt .tag{font-size:12px;font-weight:700;margin-left:6px}
-.opt.right .tag{color:var(--ok)} .opt.wrong .tag{color:var(--bad)}
-.verdict{border-radius:8px;padding:10px 14px;font-size:14.5px;display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
-.verdict.ok{background:var(--ok-soft);color:var(--ok)}
-.verdict.no{background:var(--bad-soft);color:var(--bad)}
-.verdict b{font-size:15px}
-.verdict .note{color:var(--ink);opacity:.85}
-.qnav{display:flex;justify-content:space-between;gap:10px;margin-top:14px;flex-wrap:wrap}
+.opt .sq{width:28px;height:28px;display:grid;place-items:center;font-family:var(--f-mono);font-size:13px;box-shadow:inset 0 0 0 1px var(--ink)}
+.opt:hover:not(:disabled) .sq{box-shadow:inset 0 0 0 1px var(--indigo);color:var(--indigo)}
+.opt .txt{min-width:0;overflow-wrap:anywhere;padding-top:2px}
+.opt .tag{display:block;margin-top:4px}
+.opt.sel .sq{background:var(--ink);color:var(--paper)}
+.opt.right{background:var(--paper);margin-inline:-10px;padding-inline:10px;width:calc(100% + 20px)}
+.opt.right .sq{background:var(--indigo);color:var(--paper);box-shadow:none}
+.opt.right .tag{color:var(--indigo)}
+.opt.wrong .sq{background:var(--ink);color:var(--paper);box-shadow:none}
+.opt.wrong .txt>span:first-child{text-decoration:line-through;text-decoration-thickness:1px;color:var(--soft)}
+.verdict{margin-top:28px}
+.verdict .in{padding-block:22px;display:flex;align-items:baseline;gap:20px;flex-wrap:wrap}
+.verdict.ok{background:var(--indigo);color:var(--bone)}
+.verdict.no{background:var(--ink);color:var(--bone)}
+.verdict b{font-weight:500;font-size:clamp(30px,5vw,46px);line-height:1.05}
+.verdict .note{font-size:16px;opacity:.85}
+.qnav{display:flex;justify-content:space-between;gap:18px;margin-top:30px;flex-wrap:wrap;align-items:center}
 
-/* OMR answer sheet */
-details.sheet{margin-top:20px;background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:12px 16px}
-details.sheet summary{cursor:pointer;font-weight:500;display:flex;justify-content:space-between;gap:10px;list-style:none}
+/* answer sheet */
+details.sheet{margin-top:46px;border-top:1px solid var(--hair)}
+details.sheet summary{cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:15px;padding:16px 0;list-style:none;font-size:24px;font-weight:500;line-height:1.3}
 details.sheet summary::-webkit-details-marker{display:none}
-.legend{display:flex;gap:12px;font-size:12px;color:var(--muted);flex-wrap:wrap}
-.legend i{display:inline-block;width:12px;height:8px;border-radius:50%;border:1.5px solid var(--dropout);margin-right:4px;vertical-align:middle}
-.legend .lo{background:var(--ok);border-color:var(--ok)} .legend .lx{background:var(--bad);border-color:var(--bad)} .legend .lp{background:var(--pencil);border-color:var(--pencil)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px 4px;margin-top:12px}
-.cell{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:2px;border-radius:6px;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
-.cell .bub{width:26px;height:16px;margin:0}
-.cell.cur{background:var(--dropout-soft);color:var(--dropout)}
-.cell.p .bub{background:var(--pencil);border-color:var(--pencil)}
-.cell.o .bub{background:var(--ok);border-color:var(--ok)}
-.cell.x .bub{background:var(--bad);border-color:var(--bad)}
-.cell.f::after{content:"★";font-size:9px;color:var(--warn);line-height:1;margin-top:-1px}
+details.sheet summary::after{content:"+";color:var(--indigo);font-weight:400}
+details.sheet[open] summary::after{content:"×"}
+.legend{display:flex;gap:15px;flex-wrap:wrap;color:var(--soft);margin-bottom:14px}
+.legend i{display:inline-block;width:9px;height:9px;margin-right:6px;vertical-align:-1px;box-shadow:inset 0 0 0 1px var(--ink)}
+.legend .lo{background:var(--indigo);box-shadow:none} .legend .lx{background:var(--ink);box-shadow:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(36px,1fr));gap:10px 6px}
+.cell{display:flex;flex-direction:column;align-items:center;gap:3px;font-family:var(--f-mono);font-size:10px;color:var(--soft);padding:2px 0}
+.cell .sq{width:20px;height:20px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.35);display:grid;place-items:center;font-size:11px;line-height:1}
+.cell.cur{color:var(--indigo)} .cell.cur .sq{box-shadow:inset 0 0 0 2px var(--indigo)}
+.cell.p .sq{background:var(--ink);box-shadow:none}
+.cell.o .sq{background:var(--indigo);box-shadow:none}
+.cell.x .sq{background:var(--ink);box-shadow:none;color:var(--paper)} .cell.x .sq::after{content:"×"}
+.cell.f{color:var(--indigo)} .cell.f::after{content:"■";font-size:6px;line-height:1}
 
 /* result */
-.score{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
-.score b{font-family:var(--f-display);font-size:56px;line-height:1}
-.score span{color:var(--muted)}
-.empty{padding:28px 18px;text-align:center;color:var(--muted);background:var(--sheet);border:1px dashed var(--line);border-radius:var(--r)}
-footer{margin-top:36px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
-footer a{color:var(--muted)}
-.kbd{font-family:var(--f-mono);font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 5px}
-@media (max-width:560px){.stats{gap:12px}.stat b{font-size:18px}.stem{font-size:16px}}
-@media (prefers-reduced-motion:no-preference){.opt,.year,.cell{transition:border-color .15s,background-color .15s}}
+.score{font-weight:500;font-size:clamp(96px,22vw,160px);line-height:.94;letter-spacing:-.8px;color:var(--bone);font-variant-numeric:tabular-nums}
+.score small{font-size:.3em;opacity:.6;letter-spacing:0}
+.result .in{padding-block:40px 30px;display:flex;flex-direction:column;gap:18px}
+.result p{margin:0;font-size:18px}
+
+footer{margin-top:80px;border-top:1px solid var(--hair);padding-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:20px;color:var(--soft)}
+footer p{margin:0;font-size:13px;max-width:60ch}
+.kbd{font-family:var(--f-mono);font-size:11px;color:var(--ink)}
+@media (max-width:640px){footer{grid-template-columns:1fr}.side{display:none}.yrow .yn{font-size:24px}.res{grid-template-columns:76px 1fr}}
+@media (prefers-reduced-motion:no-preference){.yrow .go{transition:transform .2s}}
 </style>
 
 </head>
 <body>
-<div class="wrap" id="app">
-  <header class="mast">
-    <div class="brand">
-      <h1>急專考古題庫</h1>
-      <p>急診醫學科專科醫師甄審筆試 95–114 年 · <span class="src">題目與答案取自台灣急診醫學會公告</span></p>
-    </div>
-    <div>
-      <div class="stats" id="stats"></div>
-      <div id="sync" class="mono"></div>
-    </div>
-  </header>
-  <main id="view"><p class="hint" style="margin-top:24px">題庫載入中…</p></main>
-  <footer>
-    題目、選項與官方答案依台灣急診醫學會「甄審考古題」公告 PDF 轉錄，送分或多答案依官方標註處理；圖片題附原卷頁碼連結可對照原圖。轉錄若有疑義以原卷為準。
-    快捷鍵：<span class="kbd">A</span>–<span class="kbd">E</span> 或 <span class="kbd">1</span>–<span class="kbd">5</span> 作答，<span class="kbd">←</span><span class="kbd">→</span> 換題，<span class="kbd">F</span> 標記。
-  </footer>
+<div id="app">
+  <div class="g"><div class="wrap nav">
+    <span class="mark lab"><i></i>急專考古題庫 / EM BOARD</span>
+    <span class="menu lab"><span id="navstate">題庫</span><b>/</b></span>
+  </div></div>
+  <main id="view"><div class="g"><div class="wrap"><p class="hint" style="margin-top:40px">題庫載入中…</p></div></div></main>
+  <div class="g"><footer class="wrap">
+    <p>題目、選項與官方答案依台灣急診醫學會「甄審考古題」公告 PDF 轉錄；送分或多答案依官方標註處理；圖片題附原卷頁碼連結可對照原圖。轉錄若有疑義以原卷為準。</p>
+    <p>快捷鍵 <span class="kbd">A–E</span> / <span class="kbd">1–5</span> 作答，<span class="kbd">← →</span> 換題，<span class="kbd">F</span> 標記。</p>
+  </footer></div>
 </div>
 
 <script>
@@ -177,12 +190,13 @@ footer a{color:var(--muted)}
 const LS_KEY="emboard.progress.v1", LS_SESS="emboard.session.v1", LS_PREF="emboard.pref.v1";
 let BANK=null, PDF={}, Q={}, YEARS=[];
 let rec={};              // qid -> [lastOk(0/1), tries, wrongs, flag(0/1), lastPick]
-let sess=null;           // current quiz session
+let sess=null;
 let pref={mode:"practice", tab:"years", rYears:null, rCount:50, rFresh:false};
-let dbRef=null, dbReady=false, saveTimer=null, saving=Promise.resolve();
+let dbRef=null, dbReady=false, saveTimer=null, saving=Promise.resolve(), syncMsg="進度存在這台裝置的瀏覽器";
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const LET="ABCDE";
+const W=html=>`<div class="g"><div class="wrap">${html}</div></div>`;
 
 /* ---------- storage ---------- */
 function lsGet(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null}catch(e){return null}}
@@ -194,19 +208,19 @@ function persist(){
   clearTimeout(saveTimer);
   saveTimer=setTimeout(()=>{
     const body={v:1,r:rec,t:Date.now()};
-    saving=saving.then(()=>dbRef.set(body)).then(()=>setSync("已同步到你的帳號")).catch(e=>{
+    saving=saving.then(()=>dbRef.set(body)).then(()=>setSync("進度已同步到你的帳號")).catch(e=>{
       setSync(e&&e.code==="quota_exceeded"?"雲端空間已滿，進度只存在這台裝置":"暫時無法同步，進度先存在這台裝置");
     });
   },1200);
 }
-function setSync(t){const el=$("#sync");if(el)el.textContent=t}
+function setSync(t){syncMsg=t;const el=$("#sync");if(el)el.textContent=t}
 async function initDb(){
   try{
-    if(!window.claude||!window.claude.use){setSync("進度存在這台裝置的瀏覽器");return}
+    if(!window.claude||!window.claude.use)return;
     const [db,user]=await Promise.all([window.claude.use("db"),window.claude.use("user")]);
-    if(!db||!user){setSync("進度存在這台裝置的瀏覽器");return}
+    if(!db||!user)return;
     const id=await user.id();
-    if(!id){setSync("進度存在這台裝置的瀏覽器");return}
+    if(!id)return;
     dbRef=db.doc("data/users/"+id+"/progress");
     const snap=await dbRef.get();
     const remote=snap.exists?(snap.data().r||{}):{};
@@ -215,71 +229,72 @@ async function initDb(){
     rec=merged; dbReady=true; lsSet(LS_KEY,rec);
     setSync("進度已同步到你的帳號，換裝置也看得到");
     if(changed&&Object.keys(rec).length)persist();
-    refresh();
-  }catch(e){setSync("進度存在這台裝置的瀏覽器")}
+    if(!sess)renderHome();
+  }catch(e){}
 }
 
 /* ---------- helpers ---------- */
 const qid=(y,n)=>y+"-"+n;
-function status(id){const r=rec[id];if(!r||!r[1])return "";return r[0]?"o":"x"}
 function yearStats(y){let done=0,ok=0;for(const q of BANK[y]){const r=rec[qid(y,q[0])];if(r&&r[1]){done++;if(r[0])ok++}}return{done,ok,total:BANK[y].length}}
 function allStats(){let done=0,ok=0,wrong=0,flag=0;for(const k in rec){const r=rec[k];if(!Q[k])continue;if(r[1]){done++;if(r[0])ok++;else wrong++}if(r[3])flag++}return{done,ok,wrong,flag}}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function fmtTime(ms){const s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return (h?h+":":"")+String(m).padStart(2,"0")+":"+String(x).padStart(2,"0")}
-
-/* ---------- header stats ---------- */
-function renderStats(){
-  const s=allStats(), total=Object.keys(Q).length;
-  const acc=s.done?Math.round(s.ok/s.done*100)+"%":"—";
-  $("#stats").innerHTML=
-    `<div class="stat"><b>${s.done}<small style="font-size:13px;color:var(--muted)">/${total}</small></b><span>已作答</span></div>`+
-    `<div class="stat"><b>${acc}</b><span>正確率</span></div>`+
-    `<div class="stat"><b style="color:var(--bad)">${s.wrong}</b><span>錯題</span></div>`+
-    `<div class="stat"><b style="color:var(--warn)">${s.flag}</b><span>標記</span></div>`;
-}
+function nav(t){const el=$("#navstate");if(el)el.textContent=t}
+const btn=(id,label,extra="")=>`<button class="btn" id="${id}" ${extra}><span>${label}</span><b>→</b></button>`;
 
 /* ---------- home ---------- */
 const TABS=[["years","依年度"],["random","隨機抽題"],["wrong","錯題本"],["flag","標記題"],["search","搜尋"]];
+const TAB_EN={years:"By year",random:"Random",wrong:"Mistakes",flag:"Flagged",search:"Search"};
 function renderHome(){
-  sess=null; lsSet(LS_SESS,null);
+  sess=null; lsSet(LS_SESS,null); nav("題庫");
+  const s=allStats(), total=Object.keys(Q).length;
+  const acc=s.done?Math.round(s.ok/s.done*100):null;
   const v=$("#view");
-  let h=`<div class="tabs" role="tablist">`+TABS.map(([k,t])=>`<button class="tab" role="tab" data-tab="${k}" aria-selected="${pref.tab===k}">${t}</button>`).join("")+`</div>`;
-  h+=`<div class="modebar">作答方式
-    <span class="seg"><button data-mode="practice" aria-pressed="${pref.mode==="practice"}">每題立即對答</button><button data-mode="exam" aria-pressed="${pref.mode==="exam"}">模擬考・交卷才對答</button></span></div>`;
-  h+=`<div id="tabbody"></div>`;
-  v.innerHTML=h;
+  v.innerHTML=W(`<section class="hero"><h1>急專<br>考古題</h1>
+      <span class="side lab">EMERGENCY MEDICINE BOARD · ROC 95–114</span>
+      <div class="sub"><p>急診醫學科專科醫師甄審筆試，95 到 114 年共 ${total.toLocaleString()} 題。題目與官方答案取自台灣急診醫學會公告。</p>
+      <span class="lab">20 份試卷 / 158 張附圖</span></div></section>`)+
+    `<section class="band"><div class="g"><div class="wrap"><div class="inner">
+      <div class="k"><span class="lab">已作答</span><b>${s.done}<small>/${total}</small></b></div>
+      <div class="k"><span class="lab">正確率</span><b>${acc===null?"—":acc+"%"}</b></div>
+      <div class="k"><span class="lab">錯題</span><b>${s.wrong}</b></div>
+      <div class="k"><span class="lab">標記</span><b>${s.flag}</b></div></div>
+      <div id="sync" class="lab">${esc(syncMsg)}</div></div></div></section>`+
+    W(`<div class="split"><h2>${TABS.find(t=>t[0]===pref.tab)[1]}</h2><hr><h2 class="en">${TAB_EN[pref.tab]}</h2></div>
+      <div class="tabs" role="tablist">${TABS.map(([k,t])=>`<button class="tab lab14" role="tab" data-tab="${k}" aria-selected="${pref.tab===k}">${t}</button>`).join("")}</div>
+      <div class="modebar lab14"><span>作答方式</span><button data-mode="practice" aria-pressed="${pref.mode==="practice"}">每題立即對答</button><button data-mode="exam" aria-pressed="${pref.mode==="exam"}">模擬考 · 交卷才對答</button></div>
+      <div id="tabbody"></div>`);
   v.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{pref.tab=b.dataset.tab;lsSet(LS_PREF,pref);renderHome()});
   v.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{pref.mode=b.dataset.mode;lsSet(LS_PREF,pref);renderHome()});
   ({years:tabYears,random:tabRandom,wrong:()=>tabList("wrong"),flag:()=>tabList("flag"),search:tabSearch})[pref.tab]();
 }
 function tabYears(){
-  const tb=$("#tabbody");
-  tb.innerHTML=`<div class="years">`+YEARS.map(y=>{
-    const s=yearStats(y),g=s.ok/s.total*100,r=(s.done-s.ok)/s.total*100;
-    return `<button class="year" data-y="${y}"><span class="yt"><b>${y}</b><span>${s.total} 題 · ${BANK[y][0][2].length} 選 1</span></span>
-      <span class="bar"><i class="g" style="width:${g}%"></i><i class="r" style="width:${r}%"></i></span>
-      <span class="ym">${s.done?`做過 ${s.done} 題・答對 ${Math.round(s.ok/s.done*100)}%`:"尚未作答"}</span></button>`}).join("")+`</div>
-    <p class="hint" style="margin-top:12px">點年度從第 1 題依序作答。109 年起每年 200 題、四選一；108 年以前 100 題（101 年 120 題）、五選一。</p>`;
-  tb.querySelectorAll(".year").forEach(b=>b.onclick=()=>{const y=b.dataset.y;startSession(`${y} 年度`,BANK[y].map(q=>qid(y,q[0])),{year:y})});
+  $("#tabbody").innerHTML=`<div class="rows">`+YEARS.map(y=>{
+    const s=yearStats(y),o=s.ok/s.total*100,x=(s.done-s.ok)/s.total*100,k=BANK[y][0][2].length;
+    return `<button class="yrow" data-y="${y}"><span class="yn">${y}</span>
+      <span class="ym"><span class="lab">${s.total} 題 · ${k===4?"四":"五"}選一 · ${s.done?`做過 ${s.done} · 答對 ${Math.round(s.ok/s.done*100)}%`:"尚未作答"}</span>
+      <span class="meter"><i class="o" style="width:${o}%"></i><i class="x" style="width:${x}%"></i></span></span>
+      <span class="go">→</span></button>`}).join("")+`</div>
+    <p class="hint" style="margin-top:18px">點年度從第 1 題依序作答。進度條藍色是答對、黑色是答錯。</p>`;
+  document.querySelectorAll(".yrow").forEach(b=>b.onclick=()=>{const y=b.dataset.y;startSession(`${y} 年度`,BANK[y].map(q=>qid(y,q[0])),{year:y})});
 }
 function tabRandom(){
   if(!pref.rYears)pref.rYears=YEARS.filter(y=>+y>=109);
-  const tb=$("#tabbody");
-  tb.innerHTML=`<div class="panel">
+  $("#tabbody").innerHTML=`<div class="rows"></div><div class="block">
     <h3>從哪些年度抽題</h3>
     <div class="chips" id="ych">${YEARS.map(y=>`<button class="chip" data-y="${y}" aria-pressed="${pref.rYears.includes(y)}">${y}</button>`).join("")}</div>
-    <div class="row"><button class="btn ghost" id="yAllNew">109–114</button><button class="btn ghost" id="yAll">全部年度</button><button class="btn ghost" id="yNone">清除</button></div>
+    <div class="row"><button class="link" id="yAllNew">109–114</button><button class="link" id="yAll">全部年度</button><button class="link" id="yNone">清除</button></div>
     <h3>題數</h3>
     <div class="chips" id="cch">${[20,50,100,200].map(c=>`<button class="chip" data-c="${c}" aria-pressed="${pref.rCount===c}">${c} 題</button>`).join("")}</div>
     <label class="ck"><input type="checkbox" id="fresh" ${pref.rFresh?"checked":""}> 只抽還沒做過的題目</label>
-    <div class="row"><button class="btn" id="go">開始</button><span class="hint" id="pool"></span></div></div>`;
+    <div class="row">${btn("go","開始抽題")}<span class="lab" id="pool"></span></div></div>`;
   const pool=()=>{let ids=[];for(const y of pref.rYears)for(const q of BANK[y]){const id=qid(y,q[0]);if(!pref.rFresh||!(rec[id]&&rec[id][1]))ids.push(id)}return ids};
-  const upd=()=>{const n=pool().length;$("#pool").textContent=`題池共 ${n} 題`;$("#go").disabled=!n};
-  tb.querySelectorAll("#ych .chip").forEach(b=>b.onclick=()=>{const y=b.dataset.y;pref.rYears=pref.rYears.includes(y)?pref.rYears.filter(x=>x!==y):pref.rYears.concat(y);lsSet(LS_PREF,pref);tabRandom()});
-  tb.querySelectorAll("#cch .chip").forEach(b=>b.onclick=()=>{pref.rCount=+b.dataset.c;lsSet(LS_PREF,pref);tabRandom()});
-  $("#yAllNew").onclick=()=>{pref.rYears=YEARS.filter(y=>+y>=109);tabRandom()};
-  $("#yAll").onclick=()=>{pref.rYears=YEARS.slice();tabRandom()};
-  $("#yNone").onclick=()=>{pref.rYears=[];tabRandom()};
+  const upd=()=>{const n=pool().length;$("#pool").textContent=`題池 ${n} 題`;$("#go").disabled=!n};
+  document.querySelectorAll("#ych .chip").forEach(b=>b.onclick=()=>{const y=b.dataset.y;pref.rYears=pref.rYears.includes(y)?pref.rYears.filter(x=>x!==y):pref.rYears.concat(y);lsSet(LS_PREF,pref);tabRandom()});
+  document.querySelectorAll("#cch .chip").forEach(b=>b.onclick=()=>{pref.rCount=+b.dataset.c;lsSet(LS_PREF,pref);tabRandom()});
+  $("#yAllNew").onclick=()=>{pref.rYears=YEARS.filter(y=>+y>=109);lsSet(LS_PREF,pref);tabRandom()};
+  $("#yAll").onclick=()=>{pref.rYears=YEARS.slice();lsSet(LS_PREF,pref);tabRandom()};
+  $("#yNone").onclick=()=>{pref.rYears=[];lsSet(LS_PREF,pref);tabRandom()};
   $("#fresh").onchange=e=>{pref.rFresh=e.target.checked;lsSet(LS_PREF,pref);upd()};
   $("#go").onclick=()=>{const ids=shuffle(pool()).slice(0,pref.rCount);startSession(`隨機 ${ids.length} 題`,ids,{})};
   upd();
@@ -287,26 +302,25 @@ function tabRandom(){
 function tabList(kind){
   const ids=Object.keys(rec).filter(k=>Q[k]&&(kind==="wrong"?(rec[k][1]&&!rec[k][0]):rec[k][3])).sort(byOrder);
   const tb=$("#tabbody");
-  if(!ids.length){tb.innerHTML=`<div class="empty">${kind==="wrong"?"目前沒有錯題。最後一次答錯的題目會自動收進這裡，重做答對就會移出。":"還沒有標記的題目。作答時按題目右上角的「★ 標記」或鍵盤 F 鍵收藏。"}</div>`;return}
-  tb.innerHTML=`<div class="panel"><div class="row" style="justify-content:space-between"><h3>${kind==="wrong"?"錯題本":"標記題"}・${ids.length} 題</h3>
-    <div class="row"><button class="btn ghost" id="shuf">隨機順序重做</button><button class="btn" id="seq">依年度順序重做</button></div></div>
-    <div class="results">${ids.slice(0,300).map(id=>resRow(id)).join("")}</div>${ids.length>300?`<p class="hint">只列出前 300 題，重做時會包含全部 ${ids.length} 題。</p>`:""}</div>`;
+  if(!ids.length){tb.innerHTML=`<p class="empty" style="margin-top:22px">${kind==="wrong"?"目前沒有錯題。最後一次答錯的題目會自動收進這裡，重做答對就會移出。":"還沒有標記的題目。作答時按上方的「標記」或鍵盤 F 鍵收藏。"}</p>`;return}
   const title=kind==="wrong"?"錯題本":"標記題";
+  tb.innerHTML=`<div class="row" style="margin-top:22px;justify-content:space-between"><span class="lab14">${ids.length} 題</span>
+      <div class="row"><button class="link" id="shuf">隨機順序重做</button>${btn("seq","依年度順序重做")}</div></div>
+    <div class="rows">${ids.slice(0,300).map(id=>resRow(id)).join("")}</div>${ids.length>300?`<p class="hint" style="margin-top:12px">只列出前 300 題，重做時會包含全部 ${ids.length} 題。</p>`:""}`;
   $("#seq").onclick=()=>startSession(title,ids,{});
   $("#shuf").onclick=()=>startSession(title,shuffle(ids.slice()),{});
   bindRes(tb,ids,title);
 }
 function byOrder(a,b){const[ya,na]=a.split("-").map(Number),[yb,nb]=b.split("-").map(Number);return yb-ya||na-nb}
-function resRow(id,hl){const q=Q[id];let t=esc(q.stem);if(hl){const re=new RegExp(hl.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"gi");t=t.replace(re,m=>`<mark>${m}</mark>`)}
-  return `<button class="res" data-id="${id}"><span class="k">${q.y}-${String(q.n).padStart(3,"0")}</span><span>${t}</span></button>`}
+function resRow(id,hl){const q=Q[id];let t=esc(q.stem);if(hl){const re=new RegExp(esc(hl).replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"gi");t=t.replace(re,m=>`<mark>${m}</mark>`)}
+  return `<button class="res" data-id="${id}"><span class="k lab14">${q.y}—${String(q.n).padStart(3,"0")}</span><span>${t}</span></button>`}
 function bindRes(root,ids,title){root.querySelectorAll(".res").forEach(b=>b.onclick=()=>{const i=ids.indexOf(b.dataset.id);startSession(title,ids,{start:i})})}
 function tabSearch(){
-  const tb=$("#tabbody");
-  tb.innerHTML=`<div class="panel"><input type="search" id="sq" placeholder="輸入關鍵字，例如 Sgarbossa、氫氟酸、REBOA" autocomplete="off"><div id="sres" class="results"></div></div>`;
+  $("#tabbody").innerHTML=`<div class="block"><input type="search" id="sq" placeholder="關鍵字，例如 Sgarbossa、氫氟酸、REBOA" autocomplete="off"><div id="sres"></div></div>`;
   const inp=$("#sq");let t=null;
   const run=()=>{const s=inp.value.trim().toLowerCase();const box=$("#sres");if(s.length<2){box.innerHTML=`<p class="hint">至少輸入 2 個字，會搜尋題幹與選項。</p>`;return}
-    const ids=[];for(const id in Q){const q=Q[id];if(q.hay.includes(s))ids.push(id)}ids.sort(byOrder);
-    box.innerHTML=`<p class="hint">找到 ${ids.length} 題${ids.length>100?"，列出前 100 題":""}</p>`+ids.slice(0,100).map(id=>resRow(id,inp.value.trim())).join("");
+    const ids=[];for(const id in Q){if(Q[id].hay.includes(s))ids.push(id)}ids.sort(byOrder);
+    box.innerHTML=`<p class="lab">找到 ${ids.length} 題${ids.length>100?" · 列出前 100 題":""}</p><div class="rows" style="margin-top:10px">`+ids.slice(0,100).map(id=>resRow(id,inp.value.trim())).join("")+`</div>`;
     bindRes(box,ids,`搜尋「${inp.value.trim()}」`)};
   inp.oninput=()=>{clearTimeout(t);t=setTimeout(run,180)};
   run(); inp.focus();
@@ -324,47 +338,47 @@ function renderQuiz(){
   const exam=sess.mode==="exam"&&!sess.done;
   const picked=sess.sel[id];
   const revealed=!exam&&picked!==undefined;
-  const v=$("#view");
   const ans=q.ans;
-  let opts=q.opts.map((t,k)=>{
+  nav(sess.mode==="exam"?"模擬考":"練習");
+  const opts=q.opts.map((t,k)=>{
     const L=LET[k];let cls="opt",tag="";
-    if(revealed){if(ans.includes(L)){cls+=" right";tag=`<span class="tag">${L===picked?"你的答案・正確":"正確答案"}</span>`}else if(L===picked){cls+=" wrong";tag=`<span class="tag">你的答案</span>`}}
+    if(revealed){if(ans.includes(L)){cls+=" right";tag=`<span class="tag lab">${L===picked?"你的答案 · 正確":"正確答案"}</span>`}else if(L===picked){cls+=" wrong";tag=`<span class="tag lab">你的答案</span>`}}
     else if(picked===L)cls+=" sel";
-    return `<button class="${cls}" data-l="${L}" ${revealed?"disabled":""}><span class="bub">${L}</span><span class="txt">${t?esc(t):`<em style="color:var(--muted)">（選項為圖，見上方）</em>`}${tag}</span></button>`}).join("");
+    return `<button class="${cls}" data-l="${L}" ${revealed?"disabled":""}><span class="sq">${L}</span><span class="txt"><span>${t?esc(t):"（選項為圖，見上方）"}</span>${tag}</span></button>`}).join("");
   let verdict="";
   if(revealed){const ok=ans.includes(picked);
-    verdict=`<div class="verdict ${ok?"ok":"no"}"><b>${ok?"答對":"答錯"}</b><span>官方答案 ${ans.split("").join("、")}</span>${q.note?`<span class="note">（官方註記：${esc(q.note)}）</span>`:""}</div>`}
+    verdict=`<section class="verdict ${ok?"ok":"no"}">${W(`<div class="in"><b>${ok?"答對":"答錯"}</b><span class="lab14">官方答案 ${ans.split("").join(" / ")}</span>${q.note?`<span class="note">官方註記：${esc(q.note)}</span>`:""}</div>`)}</section>`}
   const optImgs=q.figs.length===q.opts.length&&q.opts.every(t=>!t);
   const figs=q.figs.length?`<div class="figs${q.figs.length>=3?" many":""}">${q.figs.map((f,k)=>`<a href="figs/${f}" target="_blank" rel="noopener">${optImgs?`<span class="cap">${LET[k]}</span>`:""}<img src="figs/${f}" alt="${q.y} 年第 ${q.n} 題附圖${optImgs?" 選項"+LET[k]:""}" loading="lazy"></a>`).join("")}</div>`:"";
   const needOrig=/圖|影像|照片|波形|箭頭/.test(q.stem)&&!q.figs.length;
-  v.innerHTML=`<div class="qtop"><button class="iconbtn" id="home">← 題庫</button>
-      <span class="title">${esc(sess.title)} <span class="mono" style="color:var(--muted);font-weight:500">${sess.i+1}/${sess.ids.length}</span></span>
-      ${sess.mode==="exam"?`<span class="timer" id="timer"></span>`:""}
-      <button class="iconbtn" id="flag" aria-pressed="${!!r[3]}">★ ${r[3]?"已標記":"標記"}</button></div>
-    <article class="qcard">
-      <div class="qmeta"><span class="no">${q.y} 年度 第 ${q.n} 題</span>
-        <a href="${PDF[q.y]}#page=${q.p}" target="_blank" rel="noopener">原卷第 ${q.p} 頁 ↗</a></div>
+  const v=$("#view");
+  v.innerHTML=`<div class="qtop">${W(`<div class="in"><button class="link" id="home">← 題庫</button>
+      <span class="title lab14">${esc(sess.title)} · ${sess.i+1}/${sess.ids.length}</span>
+      ${sess.mode==="exam"?`<span class="lab14" id="timer"></span>`:""}
+      <button class="link flag" id="flag" aria-pressed="${!!r[3]}">${r[3]?"■ 已標記":"標記"}</button></div>`)}</div>`+
+    W(`<article><div class="qhead"><span class="qno">${String(q.n).padStart(2,"0")}</span>
+        <span class="meta"><span class="lab14">${q.y} 年度 第 ${q.n} 題</span><a class="lab" href="${PDF[q.y]}#page=${q.p}" target="_blank" rel="noopener">原卷第 ${q.p} 頁 ↗</a></span></div>
       <p class="stem">${esc(q.stem)}</p>
-      ${figs}${needOrig?`<p class="hint">本題的圖無法自動擷取，請開原卷第 ${q.p} 頁對照。</p>`:""}
-      <div class="opts">${opts}</div>${verdict}
-    </article>
-    <div class="qnav"><button class="btn ghost" id="prev" ${sess.i?"":"disabled"}>← 上一題</button>
-      ${exam?`<button class="btn ghost" id="submit">交卷</button>`:""}
-      ${sess.i<sess.ids.length-1?`<button class="btn" id="next">下一題 →</button>`:(exam?`<button class="btn" id="submit2">交卷看成績</button>`:`<button class="btn" id="fin">完成，看本回成績</button>`)}</div>
-    ${sheetHtml()}`;
+      ${figs}${needOrig?`<p class="hint" style="margin-top:14px">本題的圖無法自動擷取，請開原卷第 ${q.p} 頁對照。</p>`:""}
+      <div class="opts">${opts}</div></article>`)+
+    verdict+
+    W(`<div class="qnav"><button class="link" id="prev" ${sess.i?"":"disabled"}>← 上一題</button>
+      <div class="row">${exam?`<button class="link" id="submit">交卷</button>`:""}
+      ${sess.i<sess.ids.length-1?btn("next","下一題"):(exam?btn("submit2","交卷看成績"):btn("fin","看本回成績"))}</div></div>
+      ${sheetHtml()}`);
   v.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(b.dataset.l));
-  $("#home").onclick=()=>{if(exam&&Object.keys(sess.sel).length&&!$("#home").dataset.armed){$("#home").dataset.armed=1;$("#home").textContent="再按一次離開（未交卷的作答不會計分）";return}renderHome();refresh()};
+  $("#home").onclick=()=>{if(exam&&Object.keys(sess.sel).length&&!$("#home").dataset.armed){$("#home").dataset.armed=1;$("#home").textContent="再按一次離開（未交卷的作答不計分）";return}renderHome()};
   $("#flag").onclick=toggleFlag;
   $("#prev").onclick=()=>go(-1);
   if($("#next"))$("#next").onclick=()=>go(1);
   [$("#submit"),$("#submit2")].forEach(b=>b&&(b.onclick=()=>armSubmit(b)));
   if($("#fin"))$("#fin").onclick=renderResult;
-  v.querySelectorAll(".cell").forEach(c=>c.onclick=()=>{sess.i=+c.dataset.i;lsSet(LS_SESS,sess);renderQuiz()});
-  if(sess.mode==="exam"){const up=()=>{const el=$("#timer");if(el)el.textContent="⏱ "+fmtTime(Date.now()-sess.t0)};up();if(!sess.done)tick=setInterval(up,1000)}
+  v.querySelectorAll(".cell").forEach(c=>c.onclick=()=>{sess.i=+c.dataset.i;lsSet(LS_SESS,sess);renderQuiz();window.scrollTo(0,0)});
+  if(sess.mode==="exam"){const up=()=>{const el=$("#timer");if(el)el.textContent=fmtTime(Date.now()-sess.t0)};up();if(!sess.done)tick=setInterval(up,1000)}
 }
 function armSubmit(b){
   const n=sess.ids.length-Object.keys(sess.sel).length;
-  if(!b.dataset.armed){b.dataset.armed=1;b.textContent=n?`還有 ${n} 題沒作答，再按一次交卷`:"確定交卷";return}
+  if(!b.dataset.armed){b.dataset.armed=1;const lab=b.querySelector("span")||b;lab.textContent=n?`還有 ${n} 題沒作答，再按一次交卷`:"確定交卷";return}
   sess.done=true;const now=Date.now();
   for(const id of sess.ids){const p=sess.sel[id];if(p===undefined)continue;record(id,p,now)}
   persist();lsSet(LS_SESS,sess);renderResult();
@@ -375,12 +389,13 @@ function sheetHtml(){
     if(p!==undefined)c=exam?"p":(Q[id].ans.includes(p)?"o":"x");
     const f=rec[id]&&rec[id][3]?" f":"";
     const lab=sess.year?Q[id].n:i+1;
-    return `<button class="cell ${c}${f}${i===sess.i?" cur":""}" data-i="${i}" aria-label="第 ${lab} 題"><span class="bub"></span>${lab}</button>`}).join("");
+    return `<button class="cell ${c}${f}${i===sess.i?" cur":""}" data-i="${i}" aria-label="第 ${lab} 題"><span class="sq"></span>${lab}</button>`}).join("");
   const answered=Object.keys(sess.sel).length;
-  return `<details class="sheet" ${sess.ids.length<=120?"open":""}><summary><span>答案卡・已作答 ${answered}/${sess.ids.length}</span>
-    <span class="legend">${exam?`<span><i class="lp"></i>已填</span>`:`<span><i class="lo"></i>對</span><span><i class="lx"></i>錯</span>`}<span><i></i>未答</span></span></summary><div class="grid">${cells}</div></details>`;
+  return `<details class="sheet" ${sess.ids.length<=120?"open":""}><summary><span>答案卡 <span class="lab14" style="color:var(--soft)">${answered}/${sess.ids.length}</span></span></summary>
+    <div class="legend lab">${exam?`<span><i class="lx"></i>已填</span>`:`<span><i class="lo"></i>對</span><span><i class="lx"></i>錯</span>`}<span><i></i>未答</span><span style="color:var(--indigo)">■ 標記</span></div>
+    <div class="grid">${cells}</div></details>`;
 }
-function record(id,p,now){
+function record(id,p){
   const r=rec[id]?rec[id].slice():[0,0,0,0,""];const ok=Q[id].ans.includes(p)?1:0;
   r[0]=ok;r[1]=(r[1]||0)+1;if(!ok)r[2]=(r[2]||0)+1;r[4]=p;rec[id]=r;
 }
@@ -389,40 +404,35 @@ function pick(L){
   const exam=sess.mode==="exam"&&!sess.done;
   if(!exam&&sess.sel[id]!==undefined)return;
   if(exam&&sess.sel[id]===L){delete sess.sel[id]}else sess.sel[id]=L;
-  if(!exam){record(id,L,Date.now());persist();renderStats()}
+  if(!exam){record(id,L);persist()}
   lsSet(LS_SESS,sess);renderQuiz();
 }
-function toggleFlag(){const id=sess.ids[sess.i];const r=rec[id]?rec[id].slice():[0,0,0,0,""];r[3]=r[3]?0:1;rec[id]=r;persist();renderStats();renderQuiz()}
-function go(d){const j=sess.i+d;if(j<0||j>=sess.ids.length)return;sess.i=j;lsSet(LS_SESS,sess);renderQuiz();const t=document.querySelector(".qtop");if(t&&window.scrollY>t.offsetTop)window.scrollTo(0,0)}
+function toggleFlag(){const id=sess.ids[sess.i];const r=rec[id]?rec[id].slice():[0,0,0,0,""];r[3]=r[3]?0:1;rec[id]=r;persist();renderQuiz()}
+function go(d){const j=sess.i+d;if(j<0||j>=sess.ids.length)return;sess.i=j;lsSet(LS_SESS,sess);renderQuiz();window.scrollTo(0,0)}
 function renderResult(){
-  clearInterval(tick);
+  clearInterval(tick);nav("成績");
   const ids=sess.ids;let ok=0,ans=0;const wrong=[];
   for(const id of ids){const p=sess.sel[id];if(p===undefined)continue;ans++;if(Q[id].ans.includes(p))ok++;else wrong.push(id)}
-  const pct=ans?Math.round(ok/ids.length*100):0;
-  const v=$("#view");
-  v.innerHTML=`<div class="qtop"><button class="iconbtn" id="home">← 題庫</button><span class="title">${esc(sess.title)}・成績</span></div>
-  <div class="panel" style="margin-top:18px">
-    <div class="score"><b class="mono">${ok}<span style="font-size:24px">/${ids.length}</span></b><span>答對 ${pct}%（以全部題數計）・作答 ${ans} 題・答錯 ${wrong.length} 題${sess.mode==="exam"?"・用時 "+fmtTime(Date.now()-sess.t0):""}</span></div>
-    <div class="row">${wrong.length?`<button class="btn" id="redo">重做這回的 ${wrong.length} 題錯題</button>`:""}<button class="btn ghost" id="review">逐題檢討</button></div>
-    ${sheetHtml()}
-  </div>`;
+  const pct=Math.round(ok/ids.length*100);
   sess.done=true;lsSet(LS_SESS,sess);
-  $("#home").onclick=()=>{renderHome();refresh()};
-  if($("#redo"))$("#redo").onclick=()=>startSession(sess.title+"・錯題",wrong,{});
-  $("#review").onclick=()=>{sess.i=0;renderQuiz()};
-  v.querySelectorAll(".cell").forEach(c=>c.onclick=()=>{sess.i=+c.dataset.i;renderQuiz()});
-  renderStats();
+  $("#view").innerHTML=`<div class="qtop">${W(`<div class="in"><button class="link" id="home">← 題庫</button><span class="title lab14">${esc(sess.title)} · 成績</span></div>`)}</div>
+    <section class="band result">${W(`<div class="in"><span class="lab">答對 / 總題數</span><div class="score">${ok}<small>/${ids.length}</small></div>
+      <p>答對 ${pct}%（以全部題數計）· 作答 ${ans} 題 · 答錯 ${wrong.length} 題${sess.mode==="exam"?" · 用時 "+fmtTime(Date.now()-sess.t0):""}</p></div>`)}</section>`+
+    W(`<div class="row" style="margin-top:30px">${wrong.length?btn("redo",`重做這回的 ${wrong.length} 題錯題`):""}<button class="link" id="review">逐題檢討</button></div>${sheetHtml()}`);
+  $("#home").onclick=renderHome;
+  if($("#redo"))$("#redo").onclick=()=>startSession(sess.title+" · 錯題",wrong,{});
+  $("#review").onclick=()=>{sess.i=0;renderQuiz();window.scrollTo(0,0)};
+  document.querySelectorAll(".cell").forEach(c=>c.onclick=()=>{sess.i=+c.dataset.i;renderQuiz();window.scrollTo(0,0)});
 }
 document.addEventListener("keydown",e=>{
-  if(!sess||!document.querySelector(".qcard")||e.target.tagName==="INPUT"||e.metaKey||e.ctrlKey||e.altKey)return;
+  if(!sess||!document.querySelector(".opts")||e.target.tagName==="INPUT"||e.metaKey||e.ctrlKey||e.altKey)return;
   const k=e.key.toUpperCase();const q=Q[sess.ids[sess.i]];
-  let L=null;if("ABCDE".includes(k)&&k.length===1)L=k;else if("12345".includes(k)&&k.length===1)L=LET[+k-1];
+  let L=null;if(k.length===1&&"ABCDE".includes(k))L=k;else if(k.length===1&&"12345".includes(k))L=LET[+k-1];
   if(L&&LET.indexOf(L)<q.opts.length){e.preventDefault();pick(L)}
   else if(e.key==="ArrowRight"){e.preventDefault();go(1)}
   else if(e.key==="ArrowLeft"){e.preventDefault();go(-1)}
   else if(k==="F"){e.preventDefault();toggleFlag()}
 });
-function refresh(){renderStats();if(!sess)renderHome()}
 
 /* ---------- boot ---------- */
 async function boot(){
@@ -433,11 +443,9 @@ async function boot(){
     PDF=data.pdf;BANK=data.bank;YEARS=Object.keys(BANK).sort((a,b)=>b-a);
     for(const y of YEARS)for(const q of BANK[y]){const [n,stem,opts,ans,note,pg,figs]=q;
       Q[qid(y,n)]={y,n,stem,opts,ans,note,p:pg,figs,hay:(stem+" "+opts.join(" ")).toLowerCase()}}
-  }catch(e){$("#view").innerHTML=`<div class="empty">題庫檔載入失敗，請重新整理頁面。</div>`;return}
-  renderStats();
+  }catch(e){$("#view").innerHTML=W(`<p class="empty" style="margin-top:40px">題庫檔載入失敗，請重新整理頁面。</p>`);return}
   const s=lsGet(LS_SESS);
   if(s&&s.ids&&s.ids.every(id=>Q[id])&&!s.done){sess=s;renderQuiz()}else renderHome();
-  setSync("進度存在這台裝置的瀏覽器");
   initDb();
 }
 boot();
